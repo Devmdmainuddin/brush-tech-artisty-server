@@ -52,6 +52,11 @@ async function run() {
             const result = await artAndCraftCollection.find({ email: req.params.email }).toArray();
             res.send(result)
           })
+          app.get("/myArtAndCraf/:category", async (req, res) => {
+            console.log(req.params.category);
+            const result = await artAndCraftCollection.find({ category: req.params.category }).toArray();
+            res.send(result)
+          })
         app.put('/artAndCraf/:id', async (req, res) => {
             const id = req.params.id;
             const craf = req.body;
