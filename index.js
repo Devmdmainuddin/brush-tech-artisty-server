@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors');
-const { MongoClient, ServerApiVersion,ObjectId } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 const port = process.env.PORT || 4000
 
@@ -26,13 +26,14 @@ async function run() {
         // await client.connect();
         const artAndCraftCollection = client.db("artAndCraftStore").collection("artAndCraft")
         const artandcraftUsers = client.db("artAndCraftStore").collection("users")
-
+       
         //...............................
         app.get('/artAndCraf', async (req, res) => {
             const carsor = artAndCraftCollection.find();
             const result = await carsor.toArray();
             res.send(result)
         })
+       
 
         app.get('/artAndCraf/:id', async (req, res) => {
             const id = req.params.id;
@@ -40,23 +41,39 @@ async function run() {
             const result = await artAndCraftCollection.findOne(query)
             res.send(result);
         })
+        // app.get("/artAndCraf/:category", async (req, res) => {
+        //     const cat = req.params.category
+        //       console.log(req.params.category);
+        //       const result = await artAndCraftCollection.find({ category: cat }).toArray();
+        //       console.log(result)
+        //       res.send(result)
+        //   })
 
-        app.post('/addArtAndCraf',async(req,res)=>{
+        app.post('/addArtAndCraf', async (req, res) => {
             const art = req.body;
-            console.log('properties',art)
+            console.log('properties', art)
             const result = await artAndCraftCollection.insertOne(art)
             res.send(result);
         })
         app.get("/myArtAndCraf/:email", async (req, res) => {
+            
             console.log(req.params.email);
+            
             const result = await artAndCraftCollection.find({ email: req.params.email }).toArray();
             res.send(result)
-          })
-          app.get("/myArtAndCraf/:category", async (req, res) => {
-            console.log(req.params.category);
-            const result = await artAndCraftCollection.find({ category: req.params.category }).toArray();
-            res.send(result)
-          })
+        })
+        
+
+
+
+        // app.get("/artAndCraf/:category", async (req, res) => {
+        //     console.log(req.params.category)
+
+        //     const result = await artAndCraftCollection.find({ category: req.params.category }).toArray();
+        //     res.send(result)
+        // })
+
+
         app.put('/artAndCraf/:id', async (req, res) => {
             const id = req.params.id;
             const craf = req.body;
@@ -64,17 +81,17 @@ async function run() {
             const options = { upsert: true };
             const updatecraf = {
                 $set: {
-                    title:craf.title,
-                    image:craf.image,
-                    price:craf.price,
-                    category:craf.category,
-                    description:craf.description,
-                    description:craf.description,
-                    stockStatus:craf.stockStatus,
-                    rating:craf.rating,
-                    customization:craf.customization,
-                    processingTime:craf.processingTime,
-                    
+                    title: craf.title,
+                    image: craf.image,
+                    price: craf.price,
+                    category: craf.category,
+                    description: craf.description,
+                    description: craf.description,
+                    stockStatus: craf.stockStatus,
+                    rating: craf.rating,
+                    customization: craf.customization,
+                    processingTime: craf.processingTime,
+
                 }
             };
             const result = await artAndCraftCollection.updateOne(filter, updatecraf, options);
@@ -120,7 +137,7 @@ async function run() {
                     // name: users.fullName,
                     // image:users.image,
                     email: users.email,
-                    createdAt:users.createdAt
+                    createdAt: users.createdAt
                 }
             };
             const result = await artandcraftUsers.updateOne(filter, updateuser, options);
@@ -177,9 +194,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Confirmed!')
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port http://localhost:${port}`)
 })
