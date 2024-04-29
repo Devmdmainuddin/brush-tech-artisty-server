@@ -77,13 +77,7 @@ async function run() {
 
 
 
-        // app.get("/artAndCraf/:category", async (req, res) => {
-        //     console.log(req.params.category)
-
-        //     const result = await artAndCraftCollection.find({ category: req.params.category }).toArray();
-        //     res.send(result)
-        // })
-
+      
 
         app.put('/artAndCraf/:id', async (req, res) => {
             const id = req.params.id;
