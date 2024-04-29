@@ -26,7 +26,7 @@ async function run() {
         // await client.connect();
         const artAndCraftCollection = client.db("artAndCraftStore").collection("artAndCraft")
         const artandcraftUsers = client.db("artAndCraftStore").collection("users")
-       
+        const artandcraftCategorey = client.db("artAndCraftStore").collection("categorey")
         //...............................
         app.get('/artAndCraf', async (req, res) => {
             const carsor = artAndCraftCollection.find();
@@ -53,6 +53,12 @@ async function run() {
             const art = req.body;
             console.log('properties', art)
             const result = await artAndCraftCollection.insertOne(art)
+            res.send(result);
+        })
+        app.post('/addCategorey', async (req, res) => {
+            const art = req.body;
+            console.log('properties', art)
+            const result = await artandcraftCategorey.insertOne(art)
             res.send(result);
         })
         app.get("/myArtAndCraf/:email", async (req, res) => {
