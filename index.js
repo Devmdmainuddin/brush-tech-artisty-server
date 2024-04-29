@@ -139,8 +139,7 @@ async function run() {
             const options = { upsert: true };
             const updateuser = {
                 $set: {
-                    // name: users.fullName,
-                    // image:users.image,
+                   
                     email: users.email,
                     createdAt: users.createdAt
                 }
