@@ -55,6 +55,11 @@ async function run() {
             const result = await artAndCraftCollection.insertOne(art)
             res.send(result);
         })
+        app.get('/categorey', async (req, res) => {
+            const carsor = artAndCraftCollection.find();
+            const result = await carsor.toArray();
+            res.send(result)
+        })
         app.post('/addCategorey', async (req, res) => {
             const art = req.body;
             console.log('properties', art)
