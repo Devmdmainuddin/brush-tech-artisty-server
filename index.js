@@ -56,7 +56,7 @@ async function run() {
             res.send(result);
         })
         app.get('/categorey', async (req, res) => {
-            const carsor = artAndCraftCollection.find();
+            const carsor = artandcraftCategorey.find();
             const result = await carsor.toArray();
             res.send(result)
         })
