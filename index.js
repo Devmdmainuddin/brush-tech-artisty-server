@@ -1,24 +1,18 @@
 const express = require('express')
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+require('dotenv').config();
 const app = express()
 const port = process.env.PORT || 4000
-
-
 app.use(cors());
 app.use(express.json());
 
 
 //const uri = "mongodb+srv://brush-tech-artisty-server:2k0opfAOxGN9Kidh@cluster0.jgwprpb.mongodb.net/";
-const uri = `mongodb+srv://brush-tech-artisty-server:2k0opfAOxGN9Kidh@cluster0.jgwprpb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.jgwprpb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
+const client = new MongoClient(uri, { useUnifiedTopology: true}, { useNewUrlParser: true }, { connectTimeoutMS: 30000 }, { keepAlive: 1});
+
 
 async function run() {
     try {
@@ -48,7 +42,7 @@ async function run() {
         //       console.log(result)
         //       res.send(result)
         //   })
-
+//
         app.post('/addArtAndCraf', async (req, res) => {
             const art = req.body;
             console.log('properties', art)
